@@ -1,18 +1,21 @@
-class ContaBancaria():
+from client import client
 
-    def __init__(self, agencia, titular, saldo, limite):
-        self.__agencia = agencia;
-        self.__titular = titular;
-        self.__saldo = saldo;
-        self.__limite = limite;
+class bankAccount(client):
+    __agencia = None;
+    __saldo = 0.0;
+    __limite = 0.0;
+    def __init__(self):
+        super().__init__()
+        self.__agencia = 1;
+        self.__saldo = 0.0;
+        self.__limite = 0.0;
+        #super().get_name("Peter")        
+        #super().get_cpf(11111)
+        #super().get_rg(111111)
 
-
+        
     def get_agencia(self):
         return self.__agencia;
-
-
-    def get_titular(self):
-        return self.__titular;
 
 
     def get_saldo(self):
@@ -31,10 +34,9 @@ class ContaBancaria():
         self.__limite = limite;
 
 
-
     def extrato(self):
         print("\nExtrato Bancário:");
-        print("Saldo: {}\nTitular: {}".format(self.__saldo, self.__titular));
+        print("Saldo: {}\nTitular: {}".format(self.__saldo, self.__name));
 
  
     def sacar(self, valor):
@@ -52,15 +54,22 @@ class ContaBancaria():
 
     def transferir(self, valor, conta):
         valorSacado = self.sacar(valor);
-        conta.depositar(valorSacado);      
+        conta.depositar(valorSacado);
+
+
+    def __del__(self):
+        self.__agencia = None;
+        self.__saldo = 0.0;
+        self.__limite = 0.0;
+        print("Conta excluída")        
 
 
 
-conta1 = ContaBancaria(1, "Peter", 500.00, 1000.00);
-conta2 = ContaBancaria(1, "Peterson", 500.00, 1000.00);
+conta1 = bankAccount(1, 500.00, 1000.00);
+conta2 = bankAccount(1, 500.00, 1000.00);
 
-print("Agência:", conta1.get_agencia(),"Titular:", conta1.get_titular(),"Saldo:", conta1.get_saldo(),"Limite:", conta1.get_limite());
-print("Agência:", conta2.get_agencia(),"Titular:", conta2.get_titular(),"Saldo:", conta2.get_saldo(),"Limite:", conta2.get_limite());
+print("Agência:", conta1.get_agencia(),"Saldo:", conta1.get_saldo(),"Limite:", conta1.get_limite());
+print("Agência:", conta2.get_agencia(),"Saldo:", conta2.get_saldo(),"Limite:", conta2.get_limite());
 
 valor = 200.00;
 
@@ -76,3 +85,4 @@ print("\nTeste3:", conta1.get_saldo());
 conta1.transferir(valor, conta2);
 print("\nTeste4:", conta1.get_saldo());
 print("Teste4:", conta2.get_saldo());
+
